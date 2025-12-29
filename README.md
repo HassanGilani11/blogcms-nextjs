@@ -1,6 +1,6 @@
 # Blog CMS - Architecture Documentation
 
-A complete Blog Content Management System built with Next.js 14, Supabase, Tailwind CSS, and shadcn/ui.
+A complete Blog Content Management System built with Next.js 16, Supabase, Tailwind CSS, and shadcn/ui.
 
 ## 📚 Documentation Files
 
