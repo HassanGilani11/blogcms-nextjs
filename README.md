@@ -43,7 +43,7 @@ profiles (1) ────< (many) media
 ## 🏗️ Architecture Highlights
 
 ### Tech Stack
-- **Frontend**: Next.js 14 (App Router), React 18, TypeScript
+- **Frontend**: Next.js 16 (App Router), React 18, TypeScript
 - **Backend**: Supabase (PostgreSQL, Auth, Storage)
 - **Styling**: Tailwind CSS, shadcn/ui
 - **Deployment**: Vercel (recommended)
