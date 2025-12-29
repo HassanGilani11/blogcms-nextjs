@@ -1,0 +1,101 @@
+blogcms/
+│
+├── 📄 Configuration Files
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── next.config.mjs
+│   ├── tailwind.config.ts
+│   ├── postcss.config.mjs
+│   ├── .eslintrc.json
+│   └── .gitignore
+│
+├── 📁 app/                          # Next.js 14 App Router
+│   ├── (public)/                   # Public routes group
+│   │   ├── layout.tsx
+│   │   ├── home/
+│   │   │   └── page.tsx
+│   │   ├── blog/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx
+│   │   ├── category/
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx
+│   │   └── tag/
+│   │       └── [slug]/
+│   │           └── page.tsx
+│   │
+│   ├── (admin)/                    # Admin routes group
+│   │   ├── admin/
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── posts/
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── new/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── [id]/
+│   │   │   │       └── page.tsx
+│   │   │   ├── categories/
+│   │   │   │   └── page.tsx
+│   │   │   ├── tags/
+│   │   │   │   └── page.tsx
+│   │   │   └── media/
+│   │   │       └── page.tsx
+│   │   └── login/
+│   │       └── page.tsx
+│   │
+│   ├── layout.tsx                  # Root layout
+│   ├── page.tsx                    # Root page
+│   └── globals.css                 # Global styles
+│
+├── 📁 components/
+│   ├── layout/
+│   │   ├── SiteHeader.tsx
+│   │   ├── SiteFooter.tsx
+│   │   └── MainNav.tsx
+│   │
+│   ├── blog/
+│   │   ├── PostCard.tsx
+│   │   └── PostList.tsx
+│   │
+│   ├── admin/
+│   │   ├── AdminSidebar.tsx
+│   │   └── AdminHeader.tsx
+│   │
+│   └── ui/                         # shadcn/ui components
+│       ├── button.tsx
+│       ├── input.tsx
+│       ├── label.tsx
+│       ├── card.tsx
+│       └── badge.tsx
+│
+├── 📁 lib/
+│   ├── supabase/
+│   │   ├── client.ts               # Browser client
+│   │   └── server.ts               # Server client
+│   │
+│   ├── utils/
+│   │   ├── cn.ts                   # className utility
+│   │   ├── slug.ts                # Slug utilities
+│   │   └── date.ts                # Date utilities
+│   │
+│   └── config/
+│       └── site.ts                # Site config
+│
+├── 📁 types/
+│   └── database.ts                # TypeScript types
+│
+├── 📄 Root Files
+│   ├── middleware.ts              # Auth middleware
+│   └── README.md                  # Main README
+│
+└── 📚 Documentation
+    ├── ARCHITECTURE.md
+    ├── FEATURES.md
+    ├── DATABASE_SCHEMA.sql
+    ├── DATABASE_RELATIONSHIPS.md
+    ├── API_REFERENCE.md
+    ├── PROJECT_STRUCTURE.md
+    ├── README_PROJECT.md
+    └── FOLDER_TREE.txt
+
