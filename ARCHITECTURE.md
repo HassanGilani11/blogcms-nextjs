@@ -453,7 +453,7 @@ $$ LANGUAGE plpgsql;
 
 ```
 blogcms/
-├── app/                          # Next.js 14 App Router
+├── app/                          # Next.js 16 App Router
 │   ├── (public)/                # Public routes group
 │   │   ├── page.tsx             # Homepage
 │   │   ├── blog/
@@ -548,7 +548,7 @@ blogcms/
 ### Architecture Layers
 
 #### 1. **Presentation Layer** (app/)
-- Next.js 14 App Router pages
+- Next.js 16 App Router pages
 - Server Components (default)
 - Client Components (interactive UI)
 - Route groups for organization
@@ -614,7 +614,7 @@ Admin Action → Client Component → API Route → Supabase Insert/Update → R
 
 ### SEO Architecture
 
-1. **Metadata API** (Next.js 14)
+1. **Metadata API** (Next.js 16)
    - Dynamic metadata per route
    - Open Graph tags
    - Twitter Cards
@@ -635,7 +635,7 @@ Admin Action → Client Component → API Route → Supabase Insert/Update → R
 ## Technology Stack
 
 ### Core
-- **Next.js 14** - React framework with App Router
+- **Next.js 16** - React framework with App Router
 - **TypeScript** - Type safety
 - **React 18** - UI library
 
@@ -764,7 +764,7 @@ export const config = {
 ## Implementation Phases
 
 ### Phase 1: Foundation
-1. Initialize Next.js 14 project
+1. Initialize Next.js 16 project
 2. Set up Supabase project
 3. Create database schema
 4. Configure authentication
