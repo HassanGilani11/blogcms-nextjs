@@ -9,9 +9,23 @@ export async function createClient() {
         // Fallback for static generation where cookies() is not available
     }
 
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+
+    if (!url || !key) {
+        if (process.env.NODE_ENV === 'production') {
+            console.error('CRITICAL: Supabase keys missing in Production Build environment!')
+        }
+        return createServerClient(
+            url || 'https://placeholder.supabase.co',
+            key || 'placeholder-key',
+            { cookies: { getAll: () => [], setAll: () => { } } }
+        )
+    }
+
     return createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+        url,
+        key,
         {
             cookies: {
                 getAll() {

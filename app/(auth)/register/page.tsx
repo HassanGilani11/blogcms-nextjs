@@ -25,7 +25,7 @@ import {
 import { Sparkles, AlertCircle, Loader2 } from "lucide-react"
 import { signup } from "../actions"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { Alert, AlertDescription } from "@/components/ui/Alert"
 
 const formSchema = z.object({
@@ -41,7 +41,7 @@ const formSchema = z.object({
     path: ["confirmPassword"],
 })
 
-export default function RegisterPage() {
+function RegisterForm() {
     const searchParams = useSearchParams()
     const message = searchParams.get("message")
     const [isLoading, setIsLoading] = useState(false)
@@ -72,101 +72,115 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="flex h-screen w-full items-center justify-center px-4 bg-muted/40">
-            <Card className="w-full max-w-sm shadow-xl border-border/40 bg-background/95 backdrop-blur-sm">
-                <CardHeader className="space-y-1 text-center">
-                    <div className="flex justify-center mb-2">
-                        <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                            <Sparkles className="h-5 w-5 text-primary fill-primary/20" />
-                        </div>
+        <Card className="w-full max-w-sm shadow-xl border-border/40 bg-background/95 backdrop-blur-sm">
+            <CardHeader className="space-y-1 text-center">
+                <div className="flex justify-center mb-2">
+                    <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <Sparkles className="h-5 w-5 text-primary fill-primary/20" />
                     </div>
-                    <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
-                    <CardDescription>
-                        Enter your email below to create your account
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="m@example.com" {...field} className="h-11" />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" placeholder="••••••••" {...field} className="h-11" />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="confirmPassword"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Confirm Password</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" placeholder="••••••••" {...field} className="h-11" />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            {message && (
-                                <Alert variant="destructive" className="py-2.5">
-                                    <AlertCircle className="h-4 w-4" />
-                                    <AlertDescription className="text-xs">
-                                        {message}
-                                    </AlertDescription>
-                                </Alert>
+                </div>
+                <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
+                <CardDescription>
+                    Enter your email below to create your account
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="m@example.com" {...field} className="h-11" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                             )}
-                            <Button type="submit" disabled={isLoading} className="w-full h-11 font-medium shadow-lg hover:shadow-primary/25 transition-all">
-                                {isLoading ? (
-                                    <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Creating account...
-                                    </>
-                                ) : (
-                                    "Create account"
-                                )}
-                            </Button>
-                        </form>
-                    </Form>
-                </CardContent>
-                <CardFooter className="flex flex-col gap-2">
-                    <div className="relative w-full">
-                        <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t" />
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-background px-2 text-muted-foreground">
-                                Or continue with
-                            </span>
-                        </div>
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="••••••••" {...field} className="h-11" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="••••••••" {...field} className="h-11" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {message && (
+                            <Alert variant="destructive" className="py-2.5">
+                                <AlertCircle className="h-4 w-4" />
+                                <AlertDescription className="text-xs">
+                                    {message}
+                                </AlertDescription>
+                            </Alert>
+                        )}
+                        <Button type="submit" disabled={isLoading} className="w-full h-11 font-medium shadow-lg hover:shadow-primary/25 transition-all">
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Creating account...
+                                </>
+                            ) : (
+                                "Create account"
+                            )}
+                        </Button>
+                    </form>
+                </Form>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-2">
+                <div className="relative w-full">
+                    <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
                     </div>
-                    <div className="text-center text-sm text-muted-foreground mt-4">
-                        Already have an account?{" "}
-                        <Link href="/login" className="text-primary hover:underline font-medium">
-                            Sign in
-                        </Link>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                            Or continue with
+                        </span>
                     </div>
-                </CardFooter>
-            </Card>
+                </div>
+                <div className="text-center text-sm text-muted-foreground mt-4">
+                    Already have an account?{" "}
+                    <Link href="/login" className="text-primary hover:underline font-medium">
+                        Sign in
+                    </Link>
+                </div>
+            </CardFooter>
+        </Card>
+    )
+}
+
+export default function RegisterPage() {
+    return (
+        <div className="flex h-screen w-full items-center justify-center px-4 bg-muted/40">
+            <Suspense fallback={
+                <Card className="w-full max-w-sm shadow-xl border-border/40 bg-background/95 backdrop-blur-sm p-8 flex flex-col items-center justify-center gap-4">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    <p className="text-sm text-muted-foreground">Loading registration form...</p>
+                </Card>
+            }>
+                <RegisterForm />
+            </Suspense>
         </div>
     )
 }
+
