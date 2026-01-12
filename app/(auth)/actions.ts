@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
+import { getURL } from '@/lib/utils'
 
 export async function login(formData: FormData) {
     const supabase = await createClient()
@@ -231,10 +232,10 @@ export async function resetPassword(formData: FormData) {
     const supabase = await createClient()
 
     const email = formData.get('email') as string
-    const origin = (await headers()).get('origin')
+    const siteUrl = getURL()
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${origin}/auth/callback?next=/update-password`,
+        redirectTo: `${siteUrl}auth/callback?next=/update-password`,
     })
 
     if (error) {
