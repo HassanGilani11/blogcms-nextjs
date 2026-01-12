@@ -232,7 +232,10 @@ export async function resetPassword(formData: FormData) {
     const supabase = await createClient()
 
     const email = formData.get('email') as string
-    const siteUrl = getURL()
+    const headersList = await headers()
+    const host = headersList.get('host')
+    const protocol = headersList.get('x-forwarded-proto') || 'https'
+    const siteUrl = `${protocol}://${host}/`
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${siteUrl}auth/callback?next=/update-password`,
